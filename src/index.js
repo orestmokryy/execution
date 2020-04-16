@@ -1,26 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import {Provider} from 'react-redux';
-import {BrowserRouter} from 'react-router-dom';
 
-import App from './App/index';
-import * as serviceWorker from './serviceWorker';
-import reducer from './store/reducer';
-import config from './config';
+import React from "react";
+import ReactDOM from "react-dom";
 
-const store = createStore(reducer);
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
-const app = (
-    <Provider store={store}>
-        <BrowserRouter basename={config.basename}>
-            {/* basename="/IOS Smart-Meter" */}
-            <App />
-        </BrowserRouter>
-    </Provider>
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/css/animate.min.css";
+import "./assets/sass/light-bootstrap-dashboard-react.scss?v=1.3.0";
+import "./assets/css/demo.css";
+import "./assets/css/pe-icon-7-stroke.css";
+
+import AdminLayout from "layouts/Admin.jsx";
+
+ReactDOM.render(
+  <BrowserRouter>
+    <Switch>
+      <Route path="/admin" render={props => <AdminLayout {...props} />} />
+      <Redirect from="/" to="/admin/dashboard" />
+    </Switch>
+  </BrowserRouter>,
+  document.getElementById("root")
 );
-
-ReactDOM.render(app, document.getElementById('root'));
-
-
-serviceWorker.unregister();
